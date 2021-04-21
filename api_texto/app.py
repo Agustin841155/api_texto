@@ -7,29 +7,32 @@ urls = (
 app = web.application(urls, globals())
 
 class Parametros():
-    def GET(self):
+    def POST(self):
         try:
-          def classify(text,texto):
-              key ="285755f0-a214-11eb-a050-53ad201312bbb746a72c-fa08-4920-ac29-b6774420bca3"
-              url = "https://machinelearningforkids.co.uk/api/scratch/"+ key + "/classify"
-              response = requests.get(url, params={ "data" : text })
-              if response.ok:
-                responseData = response.json()
-                topMatch = responseData[0]
-                return topMatch
-              else:
-                response.raise_for_status()
-              #parametros = web.input()
-              #texto= (parametros["texto"])
-              demo = classify("tipos de billetes")
-              label = demo["class_name"]
-              confidence = demo["confidence"]
-              #data = {}
-              #data["resultado"] = label
-              #data["confianza"] = confidence
-              #result = json.dumps(data)
-              #return result
-              print ("result: '%s' with %d%% confidence" % (label, confidence)) 
+          parametros = web.input()
+          texto=(parametros["texto"])
+          key="2630acf0-a236-11eb-a050-53ad201312bb76778992-9d3d-4248-b403-ed7546e360e1"
+          url="https://machinelearningforkids.co.uk/api/scratch/"+ key + "/classify"
+          response = requests.get(url, params={ "data" : texto})
+          if response.ok:
+            responseData = response.json()
+            topMatch = responseData[0]
+            label = topMatch["class_name"]
+            confidence = topMatch["confidence"]
+            data = {}
+            data["resultado"] = label
+            data["confianza"] = confidence
+            result = json.dumps(data)
+            return result       
+          else:
+            response.raise_for_status()
+          label = topMatch["class_name"]
+          confidence = topMatch["confidence"]
+          data = {}
+          data["resultado"] = label
+          data["confianza"] = confidence
+          result = json.dumps(data)
+          return result 
         except:
           data = {}
           data["mensaje"] = "verifica los datos ingresados"
