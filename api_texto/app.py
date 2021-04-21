@@ -20,19 +20,12 @@ class Parametros():
             label = topMatch["class_name"]
             confidence = topMatch["confidence"]
             data = {}
-            data["resultado"] = label
-            data["confianza"] = confidence
+            data["resultado: "] = label
+            data["confianza: "] = confidence
             result = json.dumps(data)
             return result       
           else:
             response.raise_for_status()
-          label = topMatch["class_name"]
-          confidence = topMatch["confidence"]
-          data = {}
-          data["resultado"] = label
-          data["confianza"] = confidence
-          result = json.dumps(data)
-          return result 
         except:
           data = {}
           data["mensaje"] = "verifica los datos ingresados"
